@@ -3,40 +3,44 @@ import 'model.dart';
 
 class QuizViewModel extends ChangeNotifier {
   final QuestionBank _questionBank = QuestionBank();
-  final VoidCallback onGameOver;
   late final int totalQuestions;
   Question? currentQuestion;
   int answeredQuestionCount = 0;
   int score = 0;
   bool didAnswerQuestion = false;
   bool get hasNextQuestion => answeredQuestionCount < totalQuestions;
+  bool get isGameOver => didAnswerQuestion && !hasNextQuestion;
+  int? selectedAnswer;
 
-  QuizViewModel({required this.onGameOver}) {
+  QuizViewModel() {
     totalQuestions = _questionBank.remainingQuestions;
     getNextQuestion();
   }
 
   void getNextQuestion() {
-    if (_questionBank.hasNextQuestion) {
-      currentQuestion = _questionBank.getRandomQuestion();
-      answeredQuestionCount++;
-    }
+    if (currentQuestion != null && !didAnswerQuestion) return;
+    if (!_questionBank.hasNextQuestion) return;
+    currentQuestion = _questionBank.getRandomQuestion();
+    answeredQuestionCount++;
 
     didAnswerQuestion = false;
+    selectedAnswer = null;
 
     notifyListeners();
   }
 
   void checkAnswer(int selectedIndex) {
-    if (!didAnswerQuestion && currentQuestion?.correctAnswer == selectedIndex) {
+    if (didAnswerQuestion || currentQuestion == null) return;
+    if (selectedIndex < 0 ||
+        selectedIndex >= currentQuestion!.possibleAnswers.length) {
+      return;
+    }
+    selectedAnswer = selectedIndex;
+    if (currentQuestion?.correctAnswer == selectedIndex) {
       score++;
     }
 
     didAnswerQuestion = true;
-
-    if (!_questionBank.hasNextQuestion) {
-      onGameOver();
-    }
 
     notifyListeners();
   }

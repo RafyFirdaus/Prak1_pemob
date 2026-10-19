@@ -1,4 +1,13 @@
-# 🎯 Tugas Praktikum 1 Pemrograman Mobile 
+# Praktikum 1 Pemrograman Mobile: Animasi Flutter
+
+Hasil pengembangan starter aplikasi kuis dengan ikon skor petir indigo, transisi soal, kartu jawaban berbalik bergiliran, dan halaman hasil melalui `OpenContainer`. Tambahan animasi: angka skor akhir naik dari nol.
+
+- [Penjelasan langkah dan modifikasi](docs/penjelasan_praktikum.md)
+- Jalankan aplikasi: `flutter pub get`, lalu `flutter run`.
+- Pemeriksaan: `flutter analyze` dan `flutter test` (4 pengujian lulus).
+- Aplikasi telah dijalankan pada emulator Android Pixel 9a.
+
+## Pedoman tugas dari starter
 
 ## 📝 Deskripsi Tugas
 - Buat **aplikasi Quiz** kalian sendiri dengan mengikuti pedoman dari: [Advanced Flutter Animations](https://codelabs.developers.google.com/advanced-flutter-animations).
